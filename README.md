@@ -105,15 +105,14 @@ Follow these steps to use the project:
 - **Step 7:** Run the script.
   <br>Now you can run the main script to process and retrieve the data. Type:
   `bash
-  python main.py
-  `
+python main.py
+`
   into the terminal to run the script.
 
-      **Note:** Keep your API key confidential and do not share it publicly. The ```.env``` file is listed in the project's .```gitignore``` to exclude it from version control.
+  **Note:** Keep your API key confidential and do not share it publicly. The `.env` file is listed in the project's .`gitignore` to exclude it from version control.
 
 ## 5. File Structure
 
-    ```
     multinational-retail-data-centralisation/
     ├── main.py
     ├── requirements.txt
@@ -124,7 +123,6 @@ Follow these steps to use the project:
     ├── data_cleaning.py
     ├── data_extraction.py
     └── README.md
-    ```
 
 - **main.py**
   <br> This script is the main script to execute the loading, extration and cleaning of data.
