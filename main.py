@@ -18,22 +18,27 @@ import requests
     - Ensure the necessary environment variables are set, including API keys and database credentials.
     - Run this script to perform the data processing tasks.
 
+    Usage Example
+    ```python
+    # Step 1: Initialize classes
+    dc = DataCleaning()
+    de = DataExtractor()
+
+#     Step 2: Extract data
+#     (Example: Retrieve data from a PDF)
+    pdf_url = "https://example.com/sample.pdf"
+    pdf_data = de.retrieve_pdf_data(pdf_url)
+
+#     Step 3: Clean and transform data
+    cleaned_data = dc.clean_data(pdf_data)
+
+#     Step 4: Load data into the database
+    dc.upload_to_db(cleaned_data, "cleaned_data_table")
+    ```
+
 """
 
-# Step 1: Initialize classes
-   # dc = DataCleaning()
-    #de = DataExtractor()
 
-    # Step 2: Extract data
-    # (Example: Retrieve data from a PDF)
-   # pdf_url = "https://example.com/sample.pdf"
-    #pdf_data = de.retrieve_pdf_data(pdf_url)
-
-    # Step 3: Clean and transform data
-   # cleaned_data = dc.clean_data(pdf_data)
-
-    # Step 4: Load data into the database
-   # dc.upload_to_db(cleaned_data, "cleaned_data_table")
 
 
 dbc = DatabaseConnector()
@@ -43,10 +48,10 @@ de= DataExtractor()
 
 
 
-# user_data = de.read_rds_table('legacy_users')
+user_data = de.read_rds_table('legacy_users')
 
-# user_data_cleaned = dc.clean_user_data(user_data)
-# dbc.upload_to_db(user_data_cleaned, "dim_users")
+user_data_cleaned = dc.clean_user_data(user_data)
+dbc.upload_to_db(user_data_cleaned, "dim_users")
 
 # card_data = de.retrieve_pdf_data('https://data-handling-public.s3.eu-west-1.amazonaws.com/card_details.pdf')
 # card_data_cleaned = dc.clean_card_data(card_data)
@@ -70,27 +75,25 @@ de= DataExtractor()
 # stores_data = de.retrieve_stores_data(url=url, num_stores=num_stores, headers=headers)
 # stores_data_cleaned = dc.clean_stores_data(stores_data)
 
-#stores_data_cleaned.to_csv('cleaned_store_data.csv', index=False)
-#still has 'lat' column that may need to be removed
-#dbc.upload_to_db(stores_data_cleaned, "dim_store_details")
+# dbc.upload_to_db(stores_data_cleaned, "dim_store_details")
+
+
 
 # de.extract_from_s3("s3://data-handling-public/products.csv")
-# de.extract_from_s3("s3://data-handling-public/products.csv").to_csv('s3_data.csv', index=False)
-#s3data = de.extract_from_s3("s3://data-handling-public/products.csv")
-#s3data_weight_corrected = dc.convert_product_weights(s3data)
+# s3data = de.extract_from_s3("s3://data-handling-public/products.csv")
+# s3data_weight_corrected = dc.convert_product_weights(s3data)
 
-#s3data_cleaned = dc.clean_product_data(s3data_weight_corrected)
-#print(s3data.info())
-#dbc.upload_to_db(s3data_cleaned, "dim_products")
+# s3data_cleaned = dc.clean_product_data(s3data_weight_corrected)
+# dbc.upload_to_db(s3data_cleaned, "dim_products")
 
 # print(dbc.list_db_tables())
 
 
-orders_table = de.read_rds_table('orders_table')
-orders_table_cleaned = dc.clean_orders_data(orders_table)
+# orders_table = de.read_rds_table('orders_table')
+# orders_table_cleaned = dc.clean_orders_data(orders_table)
 #print(orders_table_cleaned)
 #dbc.upload_to_db(orders_table_cleaned, "orders_table")
 
-sales_data = de.retrieve_data_from_url('https://data-handling-public.s3.eu-west-1.amazonaws.com/date_details.json')
-sales_data_cleaned = dc.clean_sales_data(sales_data)
-dbc.upload_to_db(sales_data_cleaned, 'dim_date_times')
+# sales_data = de.retrieve_data_from_url('https://data-handling-public.s3.eu-west-1.amazonaws.com/date_details.json')
+# sales_data_cleaned = dc.clean_sales_data(sales_data)
+# dbc.upload_to_db(sales_data_cleaned, 'dim_date_times')

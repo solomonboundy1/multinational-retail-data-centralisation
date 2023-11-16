@@ -33,7 +33,7 @@ class DataExtractor:
         load_dotenv()
 
         # Reads data from an RDS table
-    def read_rds_table(self, table_name):
+    def read_rds_table(self, table_name: str):
 
         """
         Reads data from an RDS table.
@@ -51,7 +51,7 @@ class DataExtractor:
     
 
     # retrieves pdf data and converts it to dataframe
-    def retrieve_pdf_data(self, url):
+    def retrieve_pdf_data(self, url: str):
 
         """
         Retrieves data from a PDF file.
@@ -68,7 +68,7 @@ class DataExtractor:
         return df
     
     # returns the number of stores
-    def list_number_of_stores(self, url, headers):
+    def list_number_of_stores(self, url: str, headers: dict):
 
         """
         Retrieves the number of stores from the API endpoint.
@@ -85,7 +85,7 @@ class DataExtractor:
         return response.json()['number_stores']
     
     # retrieves all stores from the link and puts them into a dataframe
-    def retrieve_stores_data(self, url, num_stores, headers):
+    def retrieve_stores_data(self, url: str, num_stores: int, headers: dict):
 
         """
         Retrieve stores data from an API endpoint.
@@ -110,7 +110,7 @@ class DataExtractor:
 
 
     # extracts data from an s3 bucket
-    def extract_from_s3(self, url):
+    def extract_from_s3(self, url: str):
 
         """
         Extract data from an S3 bucket.
@@ -130,7 +130,7 @@ class DataExtractor:
         df = pd.read_csv(StringIO(body_string))
         return df
     
-    def retrieve_data_from_url(self, url):
+    def retrieve_data_from_url(self, url: str):
 
         """
         Retrieve data from a JSON file hosted at a URL.

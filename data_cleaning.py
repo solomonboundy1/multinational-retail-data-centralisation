@@ -30,7 +30,7 @@ class DataCleaning:
         
 
     
-    def clean_user_data(self, user_data):
+    def clean_user_data(self, user_data: pd.DataFrame):
         """
         Cleans user data.
 
@@ -64,9 +64,12 @@ class DataCleaning:
         # replaces typo in country code
         user_data['country_code'] = user_data['country_code'].str.replace('GGB', 'GB')
 
+        # drops column 'level_0'
+        #user_data.drop('level_0', axis=1, inplace=True)
+
         return user_data
     
-    def clean_card_data(self, card_data):
+    def clean_card_data(self, card_data: pd.DataFrame):
 
         """
         Cleans card data.
@@ -99,7 +102,7 @@ class DataCleaning:
 
         return card_data
 
-    def clean_stores_data(self, store_data):
+    def clean_stores_data(self, store_data: pd.DataFrame):
 
         """
         Cleans store data.
@@ -138,10 +141,13 @@ class DataCleaning:
         # drops duplicate entries in dataframe
         store_data = store_data.drop_duplicates()
 
+        # drops column 'lat' with only null values
+        store_data.drop('lat', axis=1, inplace=True)
+
         return store_data
     
     # converts entries in weight column to kilograms
-    def convert_product_weights(self, s3_data):
+    def convert_product_weights(self, s3_data: pd.DataFrame):
 
         """
         Converts product weights to kilograms.
@@ -177,7 +183,7 @@ class DataCleaning:
         s3_data['weight'] = s3_data['weight'].apply(convert)
         return s3_data
     
-    def clean_product_data(self, product_data):
+    def clean_product_data(self, product_data: pd.DataFrame):
 
         """
         Cleans product data.
@@ -213,7 +219,7 @@ class DataCleaning:
         return product_data
 
 
-    def clean_orders_data(self, orders_data):
+    def clean_orders_data(self, orders_data: pd.DataFrame):
 
         """
         Cleans orders data.
@@ -240,7 +246,7 @@ class DataCleaning:
         orders_data = orders_data.drop_duplicates()
         return orders_data
     
-    def clean_sales_data(self, sales_data):
+    def clean_sales_data(self, sales_data: pd.DataFrame):
 
         """
         Cleans sales data.
