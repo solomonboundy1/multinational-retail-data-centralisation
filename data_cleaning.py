@@ -114,6 +114,7 @@ class DataCleaning:
         Removes 'ee' from the beginning of some of the entries in the continent column
         Formats all dates in opening_date column to YYYY-MM-DD
         Drops duplicate entries in dataframe
+        Removes entries from staff_numbers where staff_numbers are not integers
 
         Parameters:
         - store_data (DataFrame): The DataFrame containing store data.
@@ -145,6 +146,8 @@ class DataCleaning:
         # drops column 'lat' with only null values
         store_data.drop('lat', axis=1, inplace=True)
 
+        # removes entries from staff_numbers where staff_numbers are not integers
+        store_data['staff_numbers'] = pd.to_numeric(store_data['staff_numbers'], errors='coerce')
         return store_data
     
     # converts entries in weight column to kilograms

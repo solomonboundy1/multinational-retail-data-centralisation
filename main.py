@@ -48,10 +48,10 @@ de= DataExtractor()
 
 
 
-user_data = de.read_rds_table('legacy_users')
+# user_data = de.read_rds_table('legacy_users')
 
-user_data_cleaned = dc.clean_user_data(user_data)
-dbc.upload_to_db(user_data_cleaned, "dim_users")
+# user_data_cleaned = dc.clean_user_data(user_data)
+# dbc.upload_to_db(user_data_cleaned, "dim_users")
 
 # card_data = de.retrieve_pdf_data('https://data-handling-public.s3.eu-west-1.amazonaws.com/card_details.pdf')
 # card_data_cleaned = dc.clean_card_data(card_data)
@@ -60,22 +60,22 @@ dbc.upload_to_db(user_data_cleaned, "dim_users")
 
 
 
-# load_dotenv()
-# api_key = os.getenv('API_KEY')
-# number_of_stores_url = "https://aqj7u5id95.execute-api.eu-west-1.amazonaws.com/prod/number_stores"
-# headers = {
-#     "Content-Type": "application/json",
-#      "X-API-Key": f"{api_key}"
-#     }
+load_dotenv()
+api_key = os.getenv('API_KEY')
+number_of_stores_url = "https://aqj7u5id95.execute-api.eu-west-1.amazonaws.com/prod/number_stores"
+headers = {
+    "Content-Type": "application/json",
+     "X-API-Key": f"{api_key}"
+    }
 
-# url = "https://aqj7u5id95.execute-api.eu-west-1.amazonaws.com/prod/store_details/{}"
+url = "https://aqj7u5id95.execute-api.eu-west-1.amazonaws.com/prod/store_details/{}"
 
-# num_stores = de.list_number_of_stores(number_of_stores_url, headers)
+num_stores = de.list_number_of_stores(number_of_stores_url, headers)
 
-# stores_data = de.retrieve_stores_data(url=url, num_stores=num_stores, headers=headers)
-# stores_data_cleaned = dc.clean_stores_data(stores_data)
+stores_data = de.retrieve_stores_data(url=url, num_stores=num_stores, headers=headers)
+stores_data_cleaned = dc.clean_stores_data(stores_data)
 
-# dbc.upload_to_db(stores_data_cleaned, "dim_store_details")
+dbc.upload_to_db(stores_data_cleaned, "dim_store_details")
 
 
 
