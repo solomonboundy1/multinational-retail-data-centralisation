@@ -48,7 +48,7 @@ class DataCleaning:
         """     
 
         # drops null values from dataframe
-        user_data.dropna()
+        user_data.dropna(inplace=True)
 
         # changes all mixed date formats to YYYY-MM-DD
         dates = ['date_of_birth', 'join_date']
@@ -64,8 +64,9 @@ class DataCleaning:
         # replaces typo in country code
         user_data['country_code'] = user_data['country_code'].str.replace('GGB', 'GB')
 
-        # drops column 'level_0'
-        #user_data.drop('level_0', axis=1, inplace=True)
+        # drops any row where email_address does not contain @ character also drops null values
+        user_data = user_data[user_data['email_address'].str.contains('@')]
+     
 
         return user_data
     
