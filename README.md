@@ -61,13 +61,7 @@ The project is organized into three classes:
 
 Follow these steps to use the project:
 
-- **Step 1:** [Clone the Repository](https://github.com/solomonboundy1/multinational-retail-data-centralisation.git)
-
-  ```bash
-  git clone https://github.com/solomonboundy1/multinational-retail-data-centralisation.git
-  ```
-
-- **Step 2:** Navigate to the Project Directory
+- **Step 1:** Navigate to the Project Directory
 
   Open your terminal or command prompt and navigate to the directory where you have cloned or downloaded the project.
 
@@ -77,9 +71,9 @@ Follow these steps to use the project:
 
   replace the file path with the actual file path of the downloaded project.
 
-- **Step 3:** Download and install pgAdmin and initialise an empty database.
+- **Step 2:** Download and install pgAdmin and initialise an empty database.
 
-- **Step 4:** Add your database credentials to the `db_creds.yaml` file in the format:
+- **Step 3:** Add your database credentials to the `db_creds.yaml` file in the format:
 
   ```
   POSTGRES_HOST: localhost
@@ -91,9 +85,9 @@ Follow these steps to use the project:
 
   **Note:** replace 'YOUR_PASSWORD' and 'YOUR_USERNAME with your postgre information respectively. Also add your RDS credentials in this file using the same format, instead of POSTGRES_HOST, POSTGRES_USER you must put RDS_HOST, RDS_USER and so on.
 
-- **Step 5:** Create a file named `.env` in the root directory of the program if it doesn't exist.
+- **Step 4:** Create a file named `.env` in the root directory of the program if it doesn't exist.
 
-- **Step 6:** Open the .env file and add your API key in the following format:
+- **Step 5:** Open the .env file and add your API key in the following format:
 
   ```bash
   API_KEY=your_api_key_here
@@ -102,7 +96,7 @@ Follow these steps to use the project:
   replace 'your_api_key_here' with your actual api key.
   Save and close the .env file.
 
-- **Step 7:** Run the script.
+- **Step 6:** Run the script.
   <br>Now you can run the main script to process and retrieve the data. Type:
   `bash
 python main.py
@@ -110,6 +104,16 @@ python main.py
   into the terminal to run the script.
 
   **Note:** Keep your API key confidential and do not share it publicly. The `.env` file is listed in the project's .`gitignore` to exclude it from version control.
+
+- **Step 7:** Altering SQL Tables.
+
+  To ensure the tables have the correct structure and data types, SQL queries are provided in the `SQL_queries_to_alter_tables.sql` file. After uploading the data to the database, execute the queries in this file one by one to alter the tables according to the project's specifications.
+
+  ```sql
+    -- Example SQL query to alter a table:
+    ALTER TABLE table_name
+    ALTER COLUMN column_name TYPE new_data_type;
+  ```
 
 ## 5. File Structure
 
@@ -122,6 +126,7 @@ python main.py
     ├── database_utils.py
     ├── data_cleaning.py
     ├── data_extraction.py
+    ├── SQL_queries_to_alter_tables.sql
     └── README.md
 
 - **main.py**
@@ -142,6 +147,8 @@ python main.py
 - **data_extraction.py** <br> A class for extracting data in various ways and from a number of sources.
 
 - **README.md** <br>Project documentation providing information on installation, usage, and file structure.
+
+- **SQL_queries_to_alter_tables.sql** <br> Queries to be executed one by one in SQL after data is in database.
 
 ## 6. Contributions
 
