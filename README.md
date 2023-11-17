@@ -127,7 +127,8 @@ python main.py
     ├── data_cleaning.py
     ├── data_extraction.py
     ├── SQL_queries_to_alter_tables.sql
-    └── README.md
+    ├── README.md
+    └── MIT.txt
 
 - **main.py**
   <br> This script is the main script to execute the loading, extration and cleaning of data.
