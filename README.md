@@ -146,12 +146,16 @@ python main.py
 
 - **data_extraction.py** <br> A class for extracting data in various ways and from a number of sources.
 
+- **SQL_queries_to_alter_tables.sql** <br> Queries to be executed one by one in SQL after data is in database.
+
 - **README.md** <br>Project documentation providing information on installation, usage, and file structure.
 
-- **SQL_queries_to_alter_tables.sql** <br> Queries to be executed one by one in SQL after data is in database.
+- **MIT.txt** <br> License for project
 
 ## 6. Contributions
 
 - Solomon Boundy
 
 ## 7. License Information
+
+This project is licensed under the MIT License - see the [MIT](MIT.txt) file for details.
