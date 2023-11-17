@@ -76,9 +76,9 @@ class DataCleaning:
         Cleans card data.
 
         Drops rows with null values
-        Drops any row where card_number contains alphabet characters
-        Drops rows with null entries in date_payment_confirmed column and formats all dates to YYYY-MM-DD
+        Drops rows with errors and null entries in date_payment_confirmed column and formats all dates to YYYY-MM-DD
         Drops duplicate entries in dataframe
+        Replaces question marks that are at the beginning of some 'card_number' entries with an empty string
 
         Parameters:
         - card_data (DataFrame): The DataFrame containing card data.
@@ -88,15 +88,21 @@ class DataCleaning:
         """
 
         # drops rows with null values
-        card_data.dropna()
+        card_data.dropna(inplace=True)
 
-        # drops any row where card_number contains alphabet characters
-        card_data = card_data[card_data['card_number'].str.match('^\d+$', na=False)]
-
-        # drops rows with null entries in date_payment_confirmed column, formats all dates to YYYY-MM-DD
-        card_data['date_payment_confirmed'] = pd.to_datetime(card_data['date_payment_confirmed'], errors='coerce', format='mixed')
+        # drops rows with errors and null entries in date_payment_confirmed column, formats all dates to YYYY-MM-DD
+        card_data['date_payment_confirmed'] = pd.to_datetime(card_data['date_payment_confirmed'], format='mixed', errors='coerce' )
         card_data = card_data.dropna(subset=['date_payment_confirmed'])
         card_data['date_payment_confirmed'] = card_data['date_payment_confirmed'].dt.date
+
+        # replace question marks that are at the beginning of some 'card_number' entries with an empty string
+        def remove_question_marks(card_number):
+            while str(card_number).startswith('?'):
+                card_number = str(card_number[1:])
+            return card_number
+        
+        # applies method to remove question marks
+        card_data['card_number'] = card_data['card_number'].apply(remove_question_marks)
 
         # drops duplicate entries in dataframe
         card_data = card_data.drop_duplicates()
@@ -109,12 +115,11 @@ class DataCleaning:
         Cleans store data.
 
         Drops rows with null values
-        Drops any row where longitude or latitude contain alphabet characters
         Reformats address to make it readable
         Removes 'ee' from the beginning of some of the entries in the continent column
         Formats all dates in opening_date column to YYYY-MM-DD
         Drops duplicate entries in dataframe
-        Removes entries from staff_numbers where staff_numbers are not integers
+        Cleans entries of staff_numbers where staff_numbers have alphabet characters in
 
         Parameters:
         - store_data (DataFrame): The DataFrame containing store data.
@@ -124,11 +129,7 @@ class DataCleaning:
         """
 
         # drops rows with null values
-        store_data.dropna()
-        
-        # drops any row where longitude or latitude contain alphabet characters
-        store_data = store_data[store_data['longitude'].str.match('^-?\d+(\.\d+)?$', na=False)]
-        store_data = store_data[store_data['latitude'].str.match('^-?\d+(\.\d+)?$', na=False)]
+        store_data = store_data.dropna(subset=['store_code', 'staff_numbers', 'opening_date', 'store_type', 'country_code', 'continent'])
         
         # reformats address to replace '\n' with ', '
         store_data['address'] = store_data['address'].str.replace('\n', ', ')
@@ -143,11 +144,15 @@ class DataCleaning:
         # drops duplicate entries in dataframe
         store_data = store_data.drop_duplicates()
 
-        # drops column 'lat' with only null values
-        store_data.drop('lat', axis=1, inplace=True)
+        # cleans entries of staff_numbers where staff_numbers have alphabet characters in
+        store_data['staff_numbers'] = pd.to_numeric(store_data['staff_numbers'].str.replace(r'[^0-9]', '', regex=True), errors='coerce')
 
-        # removes entries from staff_numbers where staff_numbers are not integers
-        store_data['staff_numbers'] = pd.to_numeric(store_data['staff_numbers'], errors='coerce')
+        # removes rows where staff_numbers are null after conversion
+        store_data = store_data.dropna(subset=['staff_numbers'])
+
+        # removes entries where the length of country_code is greater than 2
+        store_data = store_data[store_data['country_code'].str.len() <= 2]
+
         return store_data
     
     # converts entries in weight column to kilograms
@@ -176,13 +181,13 @@ class DataCleaning:
                 num_1 = float(nums_to_multiply[0])
                 num_2 = float(re.sub(non_numeric_re, "", nums_to_multiply[1]))
                 total = num_1 * num_2
-                return f"{total/1000}kg"
+                return total/1000
             elif 'ml' in weight:
                 # converts ml to g with 1:1 ratio and returns weight in kg
-                return f'{float(re.sub(non_numeric_re, "", weight)) / 1000} kg'
+                return float(re.sub(non_numeric_re, "", weight)) / 1000
             else:
                 # returns weight as it is if weight ends in 'kg' or else it converts the weight to kg
-                return weight if weight.endswith('kg') else f"{float(re.sub(non_numeric_re, '', weight)) / 1000} kg"
+                return float(re.sub(non_numeric_re, "",weight)) if weight.endswith('kg') else float(re.sub(non_numeric_re, '', weight)) / 1000
         # applies the nested method to the database and returns the converted data
         s3_data['weight'] = s3_data['weight'].apply(convert)
         return s3_data
@@ -278,12 +283,5 @@ class DataCleaning:
 if __name__ == '__main__':
 
     dc = DataCleaning()
-    dc.clean_user_data
-    #dc.user_data.to_csv('data.csv', index=False)
-    # print(dc.user_data['date_of_birth'])
-    #print(dc.user_data["join_date"])
-    #print(dc.user_data['join_date'])
-    #dc.user_data.info()
-   # dc.clean_stores_data
-    #dc.store_data.to_csv('cleaned_store_data.csv', index=False)
-    #print(dc.store_data['continent'])
+    
+    

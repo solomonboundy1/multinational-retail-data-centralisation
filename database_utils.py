@@ -1,5 +1,6 @@
 import yaml
 from sqlalchemy import create_engine, inspect
+import pandas as pd
 
 
 
@@ -65,7 +66,7 @@ class DatabaseConnector:
         result = inspector.get_table_names()
         return result
     
-    def upload_to_db(self, df, table_name):
+    def upload_to_db(self, df: pd.DataFrame, table_name: str):
         """
         Creates and uploads a table to the database with the contents of the DataFrame.
 
