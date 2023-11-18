@@ -127,6 +127,7 @@ python main.py
     ├── data_cleaning.py
     ├── data_extraction.py
     ├── SQL_queries_to_alter_tables.sql
+    ├── SQL_Answers.sql
     ├── README.md
     └── MIT.txt
 
@@ -148,6 +149,9 @@ python main.py
 - **data_extraction.py** <br> A class for extracting data in various ways and from a number of sources.
 
 - **SQL_queries_to_alter_tables.sql** <br> Queries to be executed one by one in SQL after data is in database.
+
+- **SQL_Answers.sql**<br>
+  Answers to the questions given by AiCore for the fourth milestone of the project
 
 - **README.md** <br>Project documentation providing information on installation, usage, and file structure.
 
