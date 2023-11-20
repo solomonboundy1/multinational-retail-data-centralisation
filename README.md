@@ -6,9 +6,10 @@
 1. [Project Structure](#2-project-structure)
 1. [Installation Instructions](#3-installation-instructions)
 1. [Usage Instructions](#4-usage-instructions)
-1. [File Structure](#5-file-structure)
-1. [Contributions](#6-contributions)
-1. [License Information](#7-license-information)
+1. [ERD](#5-ERD)
+1. [File Structure](#6-file-structure)
+1. [Contributions](#7-contributions)
+1. [License Information](#8-license-information)
 
 ## 1. Project Description
 
@@ -115,7 +116,13 @@ python main.py
     ALTER COLUMN column_name TYPE new_data_type;
   ```
 
-## 5. File Structure
+## 5. ERD
+
+Entity Relationship Diagram of database<br>
+
+![Entity Relationship Diagram of Database](SQL/MRDC_ERD.jpeg)
+
+## 6. File Structure
 
     multinational-retail-data-centralisation/
     ├── main.py
@@ -126,8 +133,10 @@ python main.py
     ├── database_utils.py
     ├── data_cleaning.py
     ├── data_extraction.py
-    ├── SQL_queries_to_alter_tables.sql
-    ├── SQL_Answers.sql
+    ├── SQL/
+    │   ├── database_build_queries.sql
+    |   ├── business_queries.sql
+    │   └── MRDC_ERD.jpeg
     ├── README.md
     └── MIT.txt
 
@@ -157,10 +166,10 @@ python main.py
 
 - **MIT.txt** <br> License for project
 
-## 6. Contributions
+## 7. Contributions
 
 - Solomon Boundy
 
-## 7. License Information
+## 8. License Information
 
 This project is licensed under the MIT License - see the [MIT](MIT.txt) file for details.
