@@ -157,10 +157,12 @@ Entity Relationship Diagram of database<br>
 
 - **data_extraction.py** <br> A class for extracting data in various ways and from a number of sources.
 
-- **SQL_queries_to_alter_tables.sql** <br> Queries to be executed one by one in SQL after data is in database.
+- **/SQL**
 
-- **SQL_Answers.sql**<br>
-  Answers to the questions given by AiCore for the fourth milestone of the project
+  - **business_queries.sql**<br>
+    Answers to the questions given by AiCore for the fourth milestone of the project
+  - **database_build_queries.sql** <br> Queries to be executed one by one in SQL after data is in database.
+  - **MRDC_ERD.jpeg** <br> Entity Relationship Diagram for Database
 
 - **README.md** <br>Project documentation providing information on installation, usage, and file structure.
 
