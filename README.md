@@ -40,8 +40,8 @@ The project is organized into three classes:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/your-repository.git
-   cd your-repository
+   git clone https://github.com/solomonboundy1/multinational-retail-data-centralisation.git
+   cd multinational-retail-data-centralisation
 
    ```
 
